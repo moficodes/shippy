@@ -7,14 +7,17 @@ import (
 	"gopkg.in/mgo.v2"
 )
 
+// service implements handler from proto
 type service struct {
 	session *mgo.Session
 }
 
+// GetRepo returns a vessel repository with a clone of the session
 func (s *service) GetRepo() Repository {
 	return &VesselRepository{s.session.Clone()}
 }
 
+// FindAvailable rpc method from proto.
 func (s *service) FindAvailable(ctx context.Context, req *pb.Specification, res *pb.Response) error {
 	defer s.GetRepo().Close()
 	vessel, err := s.GetRepo().FindAvailable(req)
