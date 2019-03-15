@@ -25,6 +25,7 @@ func (s *service) GetRepo() Repository {
 // Uses the vesselclient from service to get vessel information
 // then insert the consignment to the db
 func (s *service) CreateConsignment(ctx context.Context, req *pb.Consignment, res *pb.Response) error {
+	s.GetRepo().Close()
 	vesselResponse, err := s.vesselClient.FindAvailable(context.Background(), &vesselpb.Specification{
 		MaxWeight: req.Weight,
 		Capacity:  int32(len(req.Containers)),

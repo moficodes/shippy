@@ -10,9 +10,8 @@ const (
 	consignmentCollection = "consignments"
 )
 
-// Repostiory interface
+// Repository interface
 // ConsignmentRepository implements it
-// its passed
 type Repository interface {
 	Create(*pb.Consignment) error
 	GetAll() ([]*pb.Consignment, error)
